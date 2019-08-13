@@ -1,0 +1,35 @@
+diff --git a/main/main.c b/main/main.c
+index 7deb3010..077b709d 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -2510,7 +2510,7 @@ PHPAPI int php_execute_script(zend_file_handle *primary_file)
+ 
+ 		PG(during_request_startup) = 0;
+ 
+-		if (primary_file->filename && !(SG(options) & SAPI_OPTION_NO_CHDIR)) {
++		if ( 0 /*primary_file->filename && !(SG(options) & SAPI_OPTION_NO_CHDIR)*/ ) {
+ #if HAVE_BROKEN_GETCWD
+ 			/* this looks nasty to me */
+ 			old_cwd_fd = open(".", 0);
+@@ -2620,7 +2620,7 @@ PHPAPI int php_execute_simple_script(zend_file_handle *primary_file, zval *ret)
+ 
+ 		PG(during_request_startup) = 0;
+ 
+-		if (primary_file->filename && !(SG(options) & SAPI_OPTION_NO_CHDIR)) {
++		if ( 0 /*primary_file->filename && !(SG(options) & SAPI_OPTION_NO_CHDIR)*/) {
+ 			php_ignore_value(VCWD_GETCWD(old_cwd, OLD_CWD_SIZE-1));
+ 			VCWD_CHDIR_FILE(primary_file->filename);
+ 		}
+diff --git a/sapi/cgi/cgi_main.c b/sapi/cgi/cgi_main.c
+index cecf32ac..c2ba5045 100644
+--- a/sapi/cgi/cgi_main.c
++++ b/sapi/cgi/cgi_main.c
+@@ -1808,7 +1808,7 @@ int main(int argc, char *argv[])
+ 	size_t ini_entries_len = 0;
+ 	/* end of temporary locals */
+ 
+-	int max_requests = 500;
++	int max_requests = 100000000;
+ 	int requests = 0;
+ 	int fastcgi;
+ 	char *bindpath = NULL;
